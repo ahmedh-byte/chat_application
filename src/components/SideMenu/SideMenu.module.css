@@ -35,8 +35,8 @@
         height: 32px;
         width: 32px;
         border-radius: 50%;
-        object-fit: contain;
-        background-color: red;
+        object-fit: cover;
+       
     }
     li{
         a{
