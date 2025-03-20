@@ -11,3 +11,8 @@ export const usePaths = create(() => ({
         { path: "/settigns", icon: <RiSettings2Line />, element: <h1>Settigns</h1> },
     ]
 }));
+export const useChats=create((set)=>({
+    users:[],
+    setUsers:(userslive)=>(set(()=>({users:userslive})))
+
+}))

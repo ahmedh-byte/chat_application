@@ -9,7 +9,7 @@ export default function ChatMessage(props) {
                 <b style={{ background: props.statusColor ? props.statusColor : 'green' }}></b>
             </div>
         <div className="d-flex flex-column flex-grow-1">
-            <h5 className="m-0" >Name</h5>
+            <h5 className="m-0" >{props.username}</h5>
             <p className="m-0">The Last Message</p>
 
         </div>

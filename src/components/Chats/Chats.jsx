@@ -3,9 +3,48 @@ import styles from "./Chats.module.css"
 import { CiSearch } from "react-icons/ci";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PinnedUser from "./PinnedUsers";
+import { useEffect, useState } from "react";
+import { usersRepo } from "../../data/repos/usersRepos";
+import { collection, onSnapshot } from "firebase/firestore";
+import db from "../../firebase";
+
 
 
 export default function Chats() {
+  const[chats,setChats]=useState([]);
+  const getDatalive=()=>{
+    onSnapshot(collection(db, "users"), (users) => {
+      let final=[];
+
+         
+          users.forEach((user) => {
+            let user_obj={ ... user.data(),documentId:user.id,}
+          
+            final.push(user_obj);
+           
+          });
+          setChats(final);
+         });
+
+
+  }
+  
+ 
+  //useEffect((()=>{ usersRepo.get_all_users().then(setChats) }),[])
+  useEffect((()=>{ 
+    getDatalive();
+
+   }),[])
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="col-12  p-3 h-100 d-flex flex-column gap-2">
        <h5>Chats</h5>
@@ -34,18 +73,14 @@ export default function Chats() {
 
        </div>
        <div className="col-12  h-25 overflow-auto flex-grow-1 " id={styles.chatContainer}>
-           <ChatMessage  isActive={true}/>
-           <ChatMessage  statusColor={'yellow'} isActive={true} />
-           <ChatMessage  statusColor={'yellow'}/>
-           <ChatMessage/>
-           <ChatMessage/>
-           <ChatMessage/>
-           <ChatMessage/>
-           <ChatMessage/>
-           <ChatMessage/>
-           <ChatMessage/>
-           <ChatMessage/>
-           <ChatMessage/>
+           
+           {
+            chats.map((el)=>(
+              <ChatMessage  key={el.documentId} statusColor={'yellow'} username={el.name}/>
+
+            ))
+           }
+         
        </div>
        
         
